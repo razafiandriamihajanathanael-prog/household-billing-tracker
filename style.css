@@ -788,10 +788,10 @@ td input:focus {
   margin-top: 26px;
 }
 .photo-frame {
-  width: 170px;
-  height: 110px;
+  width: 110px;
+  height: 72px;
   margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 12px;
   overflow: hidden;
 }
 
