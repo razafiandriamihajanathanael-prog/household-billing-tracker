@@ -22,7 +22,9 @@ const currentMonthDisplay = document.getElementById("currentMonth");
 const previousMonthBtn = document.getElementById("previousMonthBtn");
 const nextMonthBtn = document.getElementById("nextMonthBtn");
 const printBtn = document.getElementById("printBtn");
-
+const generateBillsBtn = document.getElementById("generateBillsBtn");
+const generatedBillsSection = document.getElementById("generatedBillsSection");
+const generatedBillsContent = document.getElementById("generatedBillsContent");
 let currentDate = new Date(2026, 7, 1);
 
 const defaultBills = [
@@ -301,5 +303,91 @@ printBtn.addEventListener("click", async () => {
   await saveMonth();
   window.print();
 });
+generateBillsBtn.addEventListener("click", async () => {
 
+  // Save the latest changes first
+  await saveMonth();
+
+  const rows = document.querySelectorAll(".bill-row");
+
+  let total = 0;
+
+  let html = `
+    <div class="generated-month-title">
+      ${formatMonth()}
+    </div>
+  `;
+
+  rows.forEach(row => {
+
+    const name = row.querySelector(".bill-name").value.trim();
+    const dueDate = row.querySelector(".due-date").value;
+
+    const amount =
+      parseFloat(row.querySelector(".bill-amount").value) || 0;
+
+    const notes =
+      row.querySelector(".bill-notes").value.trim();
+
+    if (!name) return;
+
+    total += amount;
+
+    html += `
+      <div class="generated-bill-item">
+
+        <div class="generated-bill-info">
+
+          <strong>${name}</strong>
+
+          <p>
+            ${dueDate ? `Due: ${dueDate}` : "No due date"}
+          </p>
+
+          ${notes ? `<small>${notes}</small>` : ""}
+
+        </div>
+
+        <div class="generated-bill-money">
+
+          <strong>
+            $${amount.toFixed(2)}
+          </strong>
+
+          <span>
+            $${(amount / 4).toFixed(2)} each
+          </span>
+
+        </div>
+
+      </div>
+    `;
+  });
+
+  html += `
+    <div class="generated-bills-total">
+
+      <div>
+        <span>Total Household Bills</span>
+        <strong>$${total.toFixed(2)}</strong>
+      </div>
+
+      <div>
+        <span>Each Person</span>
+        <strong>$${(total / 4).toFixed(2)}</strong>
+      </div>
+
+    </div>
+  `;
+
+  generatedBillsContent.innerHTML = html;
+
+  generatedBillsSection.style.display = "block";
+
+  generatedBillsSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+});
 checkSession();

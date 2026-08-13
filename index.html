@@ -201,12 +201,23 @@
 
         </div>
 
-        <button
-          id="printBtn"
-          class="print-btn"
-        >
-          Print / Save PDF
-        </button>
+        <div class="header-buttons">
+
+  <button
+    id="generateBillsBtn"
+    class="generate-btn"
+  >
+    Generate Bills Summary
+  </button>
+
+  <button
+    id="printBtn"
+    class="print-btn"
+  >
+    Print / Save PDF
+  </button>
+
+</div>
 
       </header>
 
@@ -474,7 +485,23 @@
 
       </section>
 
+<!-- GENERATED BILLS SUMMARY -->
+<section
+  id="generatedBillsSection"
+  class="generated-bills-section"
+  style="display:none;"
+>
 
+  <div class="generated-bills-header">
+    <div>
+      <p class="small-label">MONTHLY SUMMARY</p>
+      <h2>Generated Bills</h2>
+    </div>
+  </div>
+
+  <div id="generatedBillsContent"></div>
+
+</section>
       <!-- FOOTER -->
       <footer class="dashboard-footer">
 

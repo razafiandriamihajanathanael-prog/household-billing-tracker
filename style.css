@@ -1098,3 +1098,139 @@ td input:focus {
   margin-top: 8px;
   font-size: 14px;
 }
+/* ========================================
+   GENERATED BILL SUMMARY
+======================================== */
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.generate-btn {
+  border: none;
+  background: var(--sage-dark);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.generate-btn:hover {
+  transform: translateY(-2px);
+  background: #435f4c;
+}
+
+.generated-bills-section {
+  margin-top: 24px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  box-shadow: var(--shadow);
+  padding: 26px;
+}
+
+.generated-bills-header h2 {
+  font-family: "Playfair Display", serif;
+  color: var(--brown);
+  margin-top: 4px;
+}
+
+.generated-month-title {
+  margin: 22px 0 10px;
+  font-family: "Playfair Display", serif;
+  color: var(--brown);
+  font-size: 26px;
+}
+
+.generated-bill-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.generated-bill-info strong {
+  color: var(--brown);
+  font-size: 15px;
+}
+
+.generated-bill-info p {
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.generated-bill-info small {
+  display: block;
+  margin-top: 3px;
+  color: var(--muted);
+}
+
+.generated-bill-money {
+  text-align: right;
+}
+
+.generated-bill-money strong {
+  display: block;
+  font-size: 17px;
+  color: var(--brown);
+}
+
+.generated-bill-money span {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sage-dark);
+}
+
+.generated-bills-total {
+  margin-top: 20px;
+  padding: 18px;
+  background: var(--sage-light);
+  border-radius: 18px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.generated-bills-total div {
+  display: flex;
+  flex-direction: column;
+}
+
+.generated-bills-total span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.generated-bills-total strong {
+  margin-top: 4px;
+  font-size: 22px;
+  color: var(--sage-dark);
+}
+
+@media (max-width: 700px) {
+  .generated-bill-item {
+    align-items: flex-start;
+  }
+
+  .generated-bills-total {
+    grid-template-columns: 1fr;
+  }
+
+  .header-buttons {
+    width: 100%;
+  }
+
+  .header-buttons button {
+    flex: 1;
+  }
+}
