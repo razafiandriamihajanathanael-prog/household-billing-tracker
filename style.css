@@ -209,15 +209,32 @@ body {
 }
 
 .sidebar {
-  background: #4f6f5a;
   color: white;
   padding: 30px 22px;
+
   display: flex;
   flex-direction: column;
+
   position: sticky;
   top: 0;
+
   height: 100vh;
   overflow-y: auto;
+
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(31, 52, 43, 0.38),
+      rgba(31, 52, 43, 0.18) 45%,
+      rgba(31, 52, 43, 0.55)
+    ),
+    url("madagascar-sidebar.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  box-shadow: 8px 0 35px rgba(42, 34, 27, 0.10);
 }
 
 .brand {
@@ -248,11 +265,19 @@ body {
 .sidebar-quote {
   margin: 28px 0;
   padding: 18px;
+
   border-radius: 18px;
-  background: rgba(255,255,255,0.08);
+
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
   font-family: "Playfair Display", serif;
   font-style: italic;
   line-height: 1.5;
+
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .sidebar-nav {
@@ -261,14 +286,26 @@ body {
 }
 
 .nav-item {
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.88);
   text-decoration: none;
+
   padding: 12px 14px;
   border-radius: 14px;
+
   display: flex;
   align-items: center;
   gap: 10px;
-  transition: 0.2s ease;
+
+  transition: 0.25s ease;
+
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25);
+}
+
+.nav-item:hover,
+.nav-item.active {
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(10px);
+  color: white;
 }
 
 .nav-item:hover,
@@ -974,4 +1011,90 @@ td input:focus {
   max-height: 90px !important;
   object-fit: cover !important;
   display: block !important;
+}
+/* ANIMATED MADAGASCAR CARD */
+
+.madagascar-feature {
+  animation: madagascarFloat 5s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.madagascar-feature img {
+  animation: madagascarZoom 8s ease-in-out infinite;
+}
+
+@keyframes madagascarFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+@keyframes madagascarZoom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+}
+.member:nth-child(1) .member-avatar {
+  background: #3f7d59;
+  color: white;
+}
+
+.member:nth-child(2) .member-avatar {
+  background: #e79b9b;
+  color: white;
+}
+
+.member:nth-child(3) .member-avatar {
+  background: #5ca6c9;
+  color: white;
+}
+
+.member:nth-child(4) .member-avatar {
+  background: #e8b13d;
+  color: white;
+}
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 40px;
+  padding-bottom: 10px;
+
+  text-align: center;
+
+  color: white;
+
+  text-shadow: 0 3px 12px rgba(0,0,0,0.45);
+}
+
+.sidebar-bottom h3 {
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+.sidebar-bottom p {
+  margin-top: 6px;
+
+  font-size: 9px;
+  font-weight: 700;
+
+  letter-spacing: 2px;
+
+  opacity: 0.75;
+}
+
+.sidebar-bottom span {
+  display: block;
+  margin-top: 8px;
+  font-size: 14px;
 }
