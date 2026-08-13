@@ -5,6 +5,7 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+
 const loginScreen = document.getElementById("loginScreen");
 const appContent = document.getElementById("appContent");
 const loginEmail = document.getElementById("loginEmail");
@@ -12,56 +13,14 @@ const loginPassword = document.getElementById("loginPassword");
 const loginBtn = document.getElementById("loginBtn");
 const loginMessage = document.getElementById("loginMessage");
 
-async function checkSession() {
-  const {
-    data: { session }
-  } = await supabaseClient.auth.getSession();
-
-  if (session) {
-    loginScreen.style.display = "none";
-    appContent.style.display = "block";
-
-    await loadMonth();
-  } else {
-    loginScreen.style.display = "flex";
-    appContent.style.display = "none";
-  }
-}
-
-loginBtn.addEventListener("click", async () => {
-  loginMessage.textContent = "Signing in...";
-
-  const email = loginEmail.value.trim();
-  const password = loginPassword.value;
-
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email,
-    password
-  });
-
-  if (error) {
-    loginMessage.textContent = "Incorrect email or password.";
-    return;
-  }
-
-  loginMessage.textContent = "";
-  loginScreen.style.display = "none";
-  appContent.style.display = "block";
-    await loadMonth();
-});
-
-checkSession();
 const billTableBody = document.getElementById("billTableBody");
 const addBillBtn = document.getElementById("addBillBtn");
-
 const totalAmount = document.getElementById("totalAmount");
 const totalPerPerson = document.getElementById("totalPerPerson");
 const billCount = document.getElementById("billCount");
-
 const currentMonthDisplay = document.getElementById("currentMonth");
 const previousMonthBtn = document.getElementById("previousMonthBtn");
 const nextMonthBtn = document.getElementById("nextMonthBtn");
-
 const printBtn = document.getElementById("printBtn");
 
 let currentDate = new Date(2026, 7, 1);
@@ -75,10 +34,6 @@ const defaultBills = [
   "Phone"
 ];
 
-function getMonthKey() {
-  return `${currentDate.getFullYear()}-${currentDate.getMonth()}`;
-}
-
 function formatMonth() {
   return currentDate.toLocaleString("en-US", {
     month: "long",
@@ -86,67 +41,92 @@ function formatMonth() {
   });
 }
 
+async function checkSession() {
+  const {
+    data: { session },
+    error
+  } = await supabaseClient.auth.getSession();
+
+  if (error) {
+    console.error("Session error:", error);
+    loginMessage.textContent = "Unable to check login session.";
+    return;
+  }
+
+  if (session) {
+    loginScreen.style.display = "none";
+    appContent.style.display = "block";
+    await loadMonth();
+  } else {
+    loginScreen.style.display = "flex";
+    appContent.style.display = "none";
+  }
+}
+
+loginBtn.addEventListener("click", async () => {
+  loginMessage.textContent = "Signing in...";
+  loginBtn.disabled = true;
+
+  const email = loginEmail.value.trim();
+  const password = loginPassword.value;
+
+  if (!email || !password) {
+    loginMessage.textContent = "Enter the email and password.";
+    loginBtn.disabled = false;
+    return;
+  }
+
+  const { data, error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    console.error("Login error:", error);
+    loginMessage.textContent = error.message || "Incorrect email or password.";
+    loginBtn.disabled = false;
+    return;
+  }
+
+  if (!data.session) {
+    loginMessage.textContent = "Login did not create a session.";
+    loginBtn.disabled = false;
+    return;
+  }
+
+  loginMessage.textContent = "";
+  loginScreen.style.display = "none";
+  appContent.style.display = "block";
+  loginBtn.disabled = false;
+  await loadMonth();
+});
+
+loginPassword.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    loginBtn.click();
+  }
+});
+
 function createBillRow(data = {}) {
   const row = document.createElement("tr");
-
   row.classList.add("bill-row");
 
   row.innerHTML = `
-    <td>
-      <input
-        type="text"
-        class="bill-name"
-        placeholder="Bill name"
-        value="${data.name || ""}"
-      >
-    </td>
-
-    <td>
-      <input
-        type="date"
-        class="due-date"
-        value="${data.dueDate || ""}"
-      >
-    </td>
-
+    <td><input type="text" class="bill-name" placeholder="Bill name" value="${data.name || ""}"></td>
+    <td><input type="date" class="due-date" value="${data.dueDate || ""}"></td>
     <td>
       <div class="money-input">
         <span>$</span>
-        <input
-          type="number"
-          class="bill-amount"
-          placeholder="0.00"
-          step="0.01"
-          min="0"
-          value="${data.amount || ""}"
-        >
+        <input type="number" class="bill-amount" placeholder="0.00" step="0.01" min="0" value="${data.amount ?? ""}">
       </div>
     </td>
-
-    <td class="split-amount">
-      $0.00
-    </td>
-
-    <td>
-      <input
-        type="text"
-        class="bill-notes"
-        placeholder="Optional"
-        value="${data.notes || ""}"
-      >
-    </td>
-
-    <td>
-      <button class="delete-btn" type="button">
-        ×
-      </button>
-    </td>
+    <td class="split-amount">$0.00</td>
+    <td><input type="text" class="bill-notes" placeholder="Optional" value="${data.notes || ""}"></td>
+    <td><button class="delete-btn" type="button">×</button></td>
   `;
 
   billTableBody.appendChild(row);
-
   addRowEvents(row);
-
   updateTotals();
 }
 
@@ -157,44 +137,36 @@ function addRowEvents(row) {
   row.querySelectorAll("input").forEach(input => {
     input.addEventListener("input", () => {
       updateTotals();
-      saveMonth();
     });
 
-    input.addEventListener("change", saveMonth);
+    input.addEventListener("change", async () => {
+      await saveMonth();
+    });
   });
 
   amountInput.addEventListener("input", () => {
     updateRowSplit(row);
   });
 
-  deleteBtn.addEventListener("click", () => {
+  deleteBtn.addEventListener("click", async () => {
     row.remove();
-
     updateTotals();
-    saveMonth();
+    await saveMonth();
   });
 }
 
 function updateRowSplit(row) {
-  const amount =
-    parseFloat(row.querySelector(".bill-amount").value) || 0;
-
-  const splitAmount = amount / 4;
-
-  row.querySelector(".split-amount").textContent =
-    `$${splitAmount.toFixed(2)}`;
+  const amount = parseFloat(row.querySelector(".bill-amount").value) || 0;
+  row.querySelector(".split-amount").textContent = `$${(amount / 4).toFixed(2)}`;
 }
 
 function updateTotals() {
   const rows = document.querySelectorAll(".bill-row");
-
   let total = 0;
   let count = 0;
 
   rows.forEach(row => {
-    const amount =
-      parseFloat(row.querySelector(".bill-amount").value) || 0;
-
+    const amount = parseFloat(row.querySelector(".bill-amount").value) || 0;
     updateRowSplit(row);
 
     if (amount > 0) {
@@ -203,22 +175,24 @@ function updateTotals() {
     }
   });
 
-  totalAmount.textContent =
-    `$${total.toFixed(2)}`;
-
-  totalPerPerson.textContent =
-    `$${(total / 4).toFixed(2)}`;
-
-  billCount.textContent =
-    count;
+  totalAmount.textContent = `$${total.toFixed(2)}`;
+  totalPerPerson.textContent = `$${(total / 4).toFixed(2)}`;
+  billCount.textContent = count;
 }
 
 async function saveMonth() {
+  const {
+    data: { user },
+    error: userError
+  } = await supabaseClient.auth.getUser();
+
+  if (userError || !user) {
+    console.error("User error:", userError);
+    return;
+  }
+
   const rows = document.querySelectorAll(".bill-row");
-
-  const monthKey =
-    `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`;
-
+  const monthKey = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`;
   const bills = [];
 
   rows.forEach(row => {
@@ -233,12 +207,12 @@ async function saveMonth() {
         bill_name: name,
         due_date: dueDate || null,
         amount: amount === "" ? null : Number(amount),
-        notes: notes || null
+        notes: notes || null,
+        created_by: user.id
       });
     }
   });
 
-  // Remove the old saved version of this month
   const { error: deleteError } = await supabaseClient
     .from("bills")
     .delete()
@@ -249,7 +223,6 @@ async function saveMonth() {
     return;
   }
 
-  // Save the newest version
   if (bills.length > 0) {
     const { error: insertError } = await supabaseClient
       .from("bills")
@@ -265,8 +238,7 @@ async function loadMonth() {
   currentMonthDisplay.textContent = formatMonth();
   billTableBody.innerHTML = "";
 
-  const monthKey =
-    `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`;
+  const monthKey = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`;
 
   const { data, error } = await supabaseClient
     .from("bills")
@@ -299,17 +271,12 @@ async function loadMonth() {
 
 async function changeMonth(direction) {
   await saveMonth();
-
-  currentDate.setMonth(
-    currentDate.getMonth() + direction
-  );
-
+  currentDate.setMonth(currentDate.getMonth() + direction);
   await loadMonth();
 }
 
 addBillBtn.addEventListener("click", () => {
   createBillRow();
-  saveMonth();
 });
 
 previousMonthBtn.addEventListener("click", () => {
@@ -320,9 +287,9 @@ nextMonthBtn.addEventListener("click", () => {
   changeMonth(1);
 });
 
-printBtn.addEventListener("click", () => {
-  saveMonth();
+printBtn.addEventListener("click", async () => {
+  await saveMonth();
   window.print();
 });
 
-
+checkSession();
