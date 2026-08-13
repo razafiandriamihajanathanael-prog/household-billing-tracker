@@ -55,7 +55,7 @@ async function checkSession() {
 
   if (session) {
     loginScreen.style.display = "none";
-    appContent.style.display = "block";
+    appContent.style.display = "";
     await loadMonth();
   } else {
     loginScreen.style.display = "flex";
@@ -96,7 +96,7 @@ loginBtn.addEventListener("click", async () => {
 
   loginMessage.textContent = "";
   loginScreen.style.display = "none";
-  appContent.style.display = "block";
+  appContent.style.display = "";
   loginBtn.disabled = false;
   await loadMonth();
 });
