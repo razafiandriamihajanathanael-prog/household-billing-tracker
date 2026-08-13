@@ -830,3 +830,311 @@ td input:focus {
     padding: 2px;
   }
 }
+/* ========================================
+   OUR HOME — SIDEBAR VISUALS
+======================================== */
+
+.home-photo-card {
+  margin-top: 26px;
+}
+
+.photo-placeholder {
+  height: 135px;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(217, 164, 65, 0.35),
+      rgba(201, 120, 85, 0.35)
+    ),
+    rgba(255, 255, 255, 0.12);
+
+  border: 1px solid rgba(255,255,255,0.18);
+}
+
+.photo-placeholder::before {
+  content: "♡";
+  position: absolute;
+  font-size: 55px;
+  color: rgba(255,255,255,0.18);
+
+  top: 25px;
+
+  animation: heartFloat 4s ease-in-out infinite;
+}
+
+.photo-placeholder span {
+  position: relative;
+  z-index: 2;
+
+  margin-bottom: 13px;
+
+  background: rgba(48, 67, 55, 0.75);
+  backdrop-filter: blur(6px);
+
+  color: white;
+
+  padding: 6px 12px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.photo-caption {
+  text-align: center;
+
+  font-family: "Playfair Display", serif;
+  font-style: italic;
+
+  color: rgba(255,255,255,0.68);
+
+  font-size: 12px;
+
+  margin-top: 9px;
+}
+
+
+/* MADAGASCAR */
+
+.madagascar-visual {
+  margin-top: 20px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.map-outline {
+  width: 95px;
+  height: 145px;
+
+  position: relative;
+
+  background: linear-gradient(
+    180deg,
+    #e8c16b,
+    #d08b5f
+  );
+
+  clip-path: polygon(
+    58% 0%,
+    73% 8%,
+    78% 21%,
+    71% 35%,
+    79% 48%,
+    70% 63%,
+    63% 80%,
+    50% 100%,
+    39% 91%,
+    31% 75%,
+    33% 60%,
+    24% 46%,
+    31% 30%,
+    36% 15%,
+    45% 5%
+  );
+
+  filter:
+    drop-shadow(
+      0 10px 12px rgba(0,0,0,0.18)
+    );
+
+  animation:
+    islandFloat 5s ease-in-out infinite;
+}
+
+.map-glow {
+  position: absolute;
+
+  width: 100%;
+  height: 100%;
+
+  background:
+    radial-gradient(
+      circle at 50% 40%,
+      rgba(255,255,255,0.35),
+      transparent 55%
+    );
+}
+
+.map-label {
+  position: absolute;
+
+  top: 58%;
+  left: 50%;
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-78deg);
+
+  color: rgba(79, 74, 54, 0.72);
+
+  font-size: 8px;
+
+  letter-spacing: 2px;
+
+  text-transform: uppercase;
+
+  font-weight: 800;
+}
+
+
+/* BAOBAB */
+
+.baobab-scene {
+  height: 145px;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: flex-end;
+
+  position: relative;
+
+  margin-top: -18px;
+}
+
+.baobab-scene::after {
+  content: "";
+
+  position: absolute;
+
+  bottom: 0;
+
+  width: 150px;
+  height: 16px;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(32,46,37,0.45),
+      transparent 70%
+    );
+}
+
+.baobab-tree {
+  width: 120px;
+  height: 135px;
+
+  position: relative;
+
+  transform-origin: bottom center;
+
+  animation:
+    baobabSway 6s ease-in-out infinite;
+}
+
+.baobab-trunk {
+  width: 37px;
+  height: 92px;
+
+  position: absolute;
+
+  bottom: 5px;
+  left: 42px;
+
+  border-radius:
+    14px 14px 7px 7px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #8e6347,
+      #b9825d,
+      #8e6347
+    );
+}
+
+.baobab-branches {
+  position: absolute;
+
+  width: 120px;
+  height: 70px;
+
+  top: 0;
+}
+
+.baobab-branches span {
+  position: absolute;
+
+  width: 55px;
+  height: 10px;
+
+  background: #9c7051;
+
+  border-radius: 10px;
+
+  transform-origin: right center;
+}
+
+.baobab-branches span:nth-child(1) {
+  left: 5px;
+  top: 36px;
+
+  transform: rotate(-30deg);
+}
+
+.baobab-branches span:nth-child(2) {
+  left: 12px;
+  top: 18px;
+
+  transform: rotate(-55deg);
+}
+
+.baobab-branches span:nth-child(3) {
+  left: 32px;
+  top: 5px;
+
+  transform: rotate(-80deg);
+}
+
+.baobab-branches span:nth-child(4) {
+  right: 10px;
+  top: 18px;
+
+  transform: rotate(55deg);
+}
+
+.baobab-branches span:nth-child(5) {
+  right: 3px;
+  top: 38px;
+
+  transform: rotate(30deg);
+}
+
+
+/* NEW ANIMATIONS */
+
+@keyframes islandFloat {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+
+  50% {
+    transform: translateY(-8px) rotate(2deg);
+  }
+
+}
+
+@keyframes heartFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+
+}
