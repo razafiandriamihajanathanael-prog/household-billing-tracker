@@ -935,3 +935,43 @@ td input:focus {
   line-height: 1.4;
   text-shadow: 0 2px 8px rgba(0,0,0,0.45);
 }
+/* FORCE SMALL SIDEBAR PHOTOS */
+
+.home-photo-card {
+  width: 100%;
+  margin: 20px 0 0;
+  padding: 0 20px;
+}
+
+.home-photo-card .photo-frame {
+  width: 100% !important;
+  height: 105px !important;
+  max-height: 105px !important;
+  overflow: hidden !important;
+  border-radius: 14px;
+}
+
+.home-photo-card .photo-frame img {
+  width: 100% !important;
+  height: 105px !important;
+  max-height: 105px !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+.madagascar-feature {
+  width: calc(100% - 40px) !important;
+  height: 90px !important;
+  max-height: 90px !important;
+  margin: 15px auto 0 !important;
+  overflow: hidden !important;
+}
+
+.madagascar-feature img {
+  width: 100% !important;
+  height: 90px !important;
+  max-height: 90px !important;
+  object-fit: cover !important;
+  display: block !important;
+}
