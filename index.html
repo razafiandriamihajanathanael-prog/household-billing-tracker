@@ -3,177 +3,502 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Household Billing Tracker</title>
+
+  <title>Our Home Billing Tracker</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap"
+    rel="stylesheet"
+  >
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+
+  <!-- PRIVATE LOGIN -->
   <div id="loginScreen" class="login-screen">
-  <div class="login-card">
-    <h1>Our Home</h1>
-    <p>Private access for Anja, Laeti, Fano & Toto</p>
 
-    <input
-      type="email"
-      id="loginEmail"
-      placeholder="Email"
-      autocomplete="email"
-    >
+    <div class="login-decoration login-leaf-one"></div>
+    <div class="login-decoration login-leaf-two"></div>
 
-    <input
-      type="password"
-      id="loginPassword"
-      placeholder="Password"
-      autocomplete="current-password"
-    >
+    <div class="login-card">
 
-    <button id="loginBtn">Sign In</button>
+      <div class="login-icon">🌿</div>
 
-    <p id="loginMessage"></p>
+      <p class="login-small">WELCOME HOME</p>
+
+      <h1>Our Home</h1>
+
+      <p class="login-subtitle">
+        Private household access for Anja, Laeti, Fano & Toto.
+      </p>
+
+      <div class="login-members">
+        <span>Anja</span>
+        <span>Laeti</span>
+        <span>Fano</span>
+        <span>Toto</span>
+      </div>
+
+      <div class="login-form">
+
+        <label for="loginEmail">Email</label>
+
+        <input
+          type="email"
+          id="loginEmail"
+          placeholder="Household email"
+          autocomplete="email"
+        >
+
+        <label for="loginPassword">Password</label>
+
+        <input
+          type="password"
+          id="loginPassword"
+          placeholder="Password"
+          autocomplete="current-password"
+        >
+
+        <button id="loginBtn" class="login-btn">
+          Enter Our Home
+        </button>
+
+        <p id="loginMessage"></p>
+
+      </div>
+
+      <p class="login-footer">
+        Shared with love, split by four.
+      </p>
+
+    </div>
+
   </div>
-</div>
 
+
+  <!-- MAIN APP -->
   <main class="app" id="appContent" style="display:none;">
 
-    <header class="header">
-      <p class="eyebrow">HOUSEHOLD FINANCE</p>
-      <h1>Monthly Billing Tracker</h1>
-      <p class="subtitle">
-        Add your household bills, track due dates, and automatically split each bill between 4 people.
-      </p>
-    </header>
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
 
-    <section class="month-section">
+      <div class="brand">
 
-      <button id="previousMonthBtn">←</button>
-
-      <div>
-        <p class="small-label">Billing Month</p>
-        <h2 id="currentMonth">August 2026</h2>
-      </div>
-
-      <button id="nextMonthBtn">→</button>
-
-    </section>
-
-    <section class="summary-grid">
-
-      <div class="summary-card">
-        <p>Total Bills</p>
-        <h3 id="totalAmount">$0.00</h3>
-      </div>
-
-      <div class="summary-card">
-        <p>Per Person</p>
-        <h3 id="totalPerPerson">$0.00</h3>
-      </div>
-
-      <div class="summary-card">
-        <p>Number of Bills</p>
-        <h3 id="billCount">0</h3>
-      </div>
-
-    </section>
-
-    <section class="billing-section">
-
-      <div class="section-heading">
-        <div>
-          <p class="small-label">MONTHLY EXPENSES</p>
-          <h2>Bills</h2>
+        <div class="brand-icon">
+          🌿
         </div>
 
-        <button id="addBillBtn" class="primary-btn">
-          + Add Bill
+        <div>
+          <p class="brand-small">OUR</p>
+          <h2>Home</h2>
+        </div>
+
+      </div>
+
+      <div class="sidebar-quote">
+        <p>“Together we make a home.”</p>
+      </div>
+
+      <nav class="sidebar-nav">
+
+        <a href="#" class="nav-item active">
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+        <a href="#bills" class="nav-item">
+          <span>▤</span>
+          Bills
+        </a>
+
+        <a href="#summary" class="nav-item">
+          <span>◫</span>
+          Summary
+        </a>
+
+      </nav>
+
+      <div class="household-card">
+
+        <p class="small-label">
+          OUR HOUSEHOLD
+        </p>
+
+        <div class="household-members">
+
+          <div class="member">
+            <div class="member-avatar">A</div>
+            <span>Anja</span>
+          </div>
+
+          <div class="member">
+            <div class="member-avatar">L</div>
+            <span>Laeti</span>
+          </div>
+
+          <div class="member">
+            <div class="member-avatar">F</div>
+            <span>Fano</span>
+          </div>
+
+          <div class="member">
+            <div class="member-avatar">T</div>
+            <span>Toto</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="madagascar-card">
+
+        <div class="madagascar-map">
+          🇲🇬
+        </div>
+
+        <p>
+          A little piece of Madagascar in our home.
+        </p>
+
+      </div>
+
+      <div class="baobab-scene">
+
+        <div class="baobab-tree">
+          <div class="baobab-crown">✦ ✦ ✦</div>
+          <div class="baobab-trunk"></div>
+        </div>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <section class="main-content">
+
+      <header class="dashboard-header">
+
+        <div>
+
+          <p class="eyebrow">
+            HOUSEHOLD FINANCE
+          </p>
+
+          <h1>
+            Monthly Billing Tracker
+          </h1>
+
+          <p class="subtitle">
+            One home, four people, one simple place to keep everything organized.
+          </p>
+
+        </div>
+
+        <button
+          id="printBtn"
+          class="print-btn"
+        >
+          Print / Save PDF
         </button>
-      </div>
 
-      <div class="table-wrapper">
+      </header>
 
-        <table>
 
-          <thead>
-            <tr>
-              <th>Bill</th>
-              <th>Due Date</th>
-              <th>Total Amount</th>
-              <th>Split ÷ 4</th>
-              <th>Notes</th>
-              <th></th>
-            </tr>
-          </thead>
+      <!-- MONTH -->
+      <section class="month-card">
 
-          <tbody id="billTableBody">
+        <button
+          id="previousMonthBtn"
+          class="month-arrow"
+        >
+          ←
+        </button>
 
-            <tr class="bill-row">
-              <td>
-                <input
-                  type="text"
-                  class="bill-name"
-                  value="Rent"
-                >
-              </td>
+        <div class="month-display">
 
-              <td>
-                <input
-                  type="date"
-                  class="due-date"
-                >
-              </td>
+          <p class="small-label">
+            BILLING MONTH
+          </p>
 
-              <td>
-                <div class="money-input">
-                  <span>$</span>
-                  <input
-                    type="number"
-                    class="bill-amount"
-                    placeholder="0.00"
-                    step="0.01"
-                    min="0"
-                  >
-                </div>
-              </td>
+          <h2 id="currentMonth">
+            August 2026
+          </h2>
 
-              <td class="split-amount">
-                $0.00
-              </td>
+        </div>
 
-              <td>
-                <input
-                  type="text"
-                  class="bill-notes"
-                  placeholder="Optional"
-                >
-              </td>
+        <button
+          id="nextMonthBtn"
+          class="month-arrow"
+        >
+          →
+        </button>
 
-              <td>
-                <button class="delete-btn">
-                  ×
-                </button>
-              </td>
-            </tr>
+      </section>
 
-          </tbody>
 
-        </table>
+      <!-- SUMMARY -->
+      <section
+        class="summary-grid"
+        id="summary"
+      >
 
-      </div>
+        <div class="summary-card total-card">
 
-    </section>
+          <div class="summary-icon">
+            $
+          </div>
 
-    <section class="actions">
+          <div>
+            <p>Total Household Bills</p>
+            <h3 id="totalAmount">$0.00</h3>
+          </div>
 
-      <button id="printBtn" class="secondary-btn">
-        Print / Save PDF
-      </button>
+        </div>
+
+
+        <div class="summary-card person-card">
+
+          <div class="summary-icon">
+            ÷4
+          </div>
+
+          <div>
+            <p>Each Person</p>
+            <h3 id="totalPerPerson">$0.00</h3>
+          </div>
+
+        </div>
+
+
+        <div class="summary-card count-card">
+
+          <div class="summary-icon">
+            ✦
+          </div>
+
+          <div>
+            <p>Number of Bills</p>
+            <h3 id="billCount">0</h3>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- CONTENT GRID -->
+      <section class="content-grid">
+
+        <!-- BILL TABLE -->
+        <section
+          class="billing-section"
+          id="bills"
+        >
+
+          <div class="section-heading">
+
+            <div>
+
+              <p class="small-label">
+                MONTHLY EXPENSES
+              </p>
+
+              <h2>
+                Bills This Month
+              </h2>
+
+            </div>
+
+          </div>
+
+
+          <div class="table-wrapper">
+
+            <table>
+
+              <thead>
+
+                <tr>
+                  <th>Bill</th>
+                  <th>Due Date</th>
+                  <th>Total</th>
+                  <th>Split ÷ 4</th>
+                  <th>Notes</th>
+                  <th></th>
+                </tr>
+
+              </thead>
+
+
+              <tbody id="billTableBody">
+
+                <tr class="bill-row">
+
+                  <td>
+                    <input
+                      type="text"
+                      class="bill-name"
+                      value="Rent"
+                    >
+                  </td>
+
+                  <td>
+                    <input
+                      type="date"
+                      class="due-date"
+                    >
+                  </td>
+
+                  <td>
+
+                    <div class="money-input">
+
+                      <span>$</span>
+
+                      <input
+                        type="number"
+                        class="bill-amount"
+                        placeholder="0.00"
+                        step="0.01"
+                        min="0"
+                      >
+
+                    </div>
+
+                  </td>
+
+                  <td class="split-amount">
+                    $0.00
+                  </td>
+
+                  <td>
+
+                    <input
+                      type="text"
+                      class="bill-notes"
+                      placeholder="Optional"
+                    >
+
+                  </td>
+
+                  <td>
+
+                    <button
+                      class="delete-btn"
+                      type="button"
+                    >
+                      ×
+                    </button>
+
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+
+        <!-- ADD BILL SIDE PANEL -->
+        <aside class="add-bill-panel">
+
+          <div class="panel-decoration">
+            ✦
+          </div>
+
+          <p class="small-label">
+            NEED SOMETHING ELSE?
+          </p>
+
+          <h2>
+            Add Another Bill
+          </h2>
+
+          <p class="panel-description">
+            Add any extra expense that comes up this month.
+          </p>
+
+          <button
+            id="addBillBtn"
+            class="add-bill-big-btn"
+          >
+            <span>+</span>
+            Add Additional Bill
+          </button>
+
+          <div class="split-info">
+
+            <div class="split-icon">
+              4
+            </div>
+
+            <div>
+
+              <strong>
+                Automatically split
+              </strong>
+
+              <p>
+                Every bill is divided equally between Anja, Laeti, Fano and Toto.
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="madagascar-message">
+
+            <div class="map-shape">
+              ✦
+            </div>
+
+            <p>
+              From Madagascar to our home — together, always.
+            </p>
+
+          </div>
+
+        </aside>
+
+      </section>
+
+
+      <!-- FOOTER -->
+      <footer class="dashboard-footer">
+
+        <div>
+
+          <p class="footer-quote">
+            “Alone we can do so little; together we can do so much.”
+          </p>
+
+          <span>
+            — Helen Keller
+          </span>
+
+        </div>
+
+        <div class="footer-members">
+          Anja · Laeti · Fano · Toto
+        </div>
+
+      </footer>
 
     </section>
 
   </main>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="script.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
 
 </body>
 </html>
