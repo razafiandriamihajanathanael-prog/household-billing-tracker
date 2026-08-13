@@ -134,14 +134,25 @@ function addRowEvents(row) {
   const amountInput = row.querySelector(".bill-amount");
   const deleteBtn = row.querySelector(".delete-btn");
 
+  let saveTimer;
+
   row.querySelectorAll("input").forEach(input => {
+
     input.addEventListener("input", () => {
       updateTotals();
+
+      clearTimeout(saveTimer);
+
+      saveTimer = setTimeout(async () => {
+        await saveMonth();
+      }, 500);
     });
 
     input.addEventListener("change", async () => {
+      clearTimeout(saveTimer);
       await saveMonth();
     });
+
   });
 
   amountInput.addEventListener("input", () => {
