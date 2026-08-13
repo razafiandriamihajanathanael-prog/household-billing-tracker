@@ -218,8 +218,7 @@ async function saveMonth() {
         bill_name: name,
         due_date: dueDate || null,
         amount: amount === "" ? null : Number(amount),
-        notes: notes || null,
-        created_by: user.id
+        notes: notes || null
       });
     }
   });
