@@ -5,6 +5,49 @@ const supabaseClient = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_KEY
 );
+const loginScreen = document.getElementById("loginScreen");
+const appContent = document.getElementById("appContent");
+const loginEmail = document.getElementById("loginEmail");
+const loginPassword = document.getElementById("loginPassword");
+const loginBtn = document.getElementById("loginBtn");
+const loginMessage = document.getElementById("loginMessage");
+
+async function checkSession() {
+  const {
+    data: { session }
+  } = await supabaseClient.auth.getSession();
+
+  if (session) {
+    loginScreen.style.display = "none";
+    appContent.style.display = "block";
+  } else {
+    loginScreen.style.display = "flex";
+    appContent.style.display = "none";
+  }
+}
+
+loginBtn.addEventListener("click", async () => {
+  loginMessage.textContent = "Signing in...";
+
+  const email = loginEmail.value.trim();
+  const password = loginPassword.value;
+
+  const { error } = await supabaseClient.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    loginMessage.textContent = "Incorrect email or password.";
+    return;
+  }
+
+  loginMessage.textContent = "";
+  loginScreen.style.display = "none";
+  appContent.style.display = "block";
+});
+
+checkSession();
 const billTableBody = document.getElementById("billTableBody");
 const addBillBtn = document.getElementById("addBillBtn");
 
