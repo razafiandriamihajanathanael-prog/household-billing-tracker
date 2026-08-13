@@ -1,3 +1,10 @@
+const SUPABASE_URL = "https://tyethrwijwqsqrgsrdnm.supabase.co";
+const SUPABASE_KEY = "sb_publishable_6dfeonRsZH8E26XQl-mKDQ_8dSu4UWs";
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
 const billTableBody = document.getElementById("billTableBody");
 const addBillBtn = document.getElementById("addBillBtn");
 
