@@ -1234,3 +1234,46 @@ td input:focus {
     flex: 1;
   }
 }
+.print-summary-btn {
+  margin-top: 18px;
+  border: none;
+  background: var(--brown);
+  color: white;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media print {
+
+  body.print-summary-only .sidebar,
+  body.print-summary-only .dashboard-header,
+  body.print-summary-only .month-card,
+  body.print-summary-only .summary-grid,
+  body.print-summary-only .content-grid,
+  body.print-summary-only .dashboard-footer,
+  body.print-summary-only .print-summary-btn {
+    display: none !important;
+  }
+
+  body.print-summary-only .generated-bills-section {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: white !important;
+  }
+
+  body.print-summary-only .main-content {
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  body.print-summary-only .app {
+    display: block !important;
+  }
+}

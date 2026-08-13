@@ -25,6 +25,7 @@ const printBtn = document.getElementById("printBtn");
 const generateBillsBtn = document.getElementById("generateBillsBtn");
 const generatedBillsSection = document.getElementById("generatedBillsSection");
 const generatedBillsContent = document.getElementById("generatedBillsContent");
+const printSummaryBtn = document.getElementById("printSummaryBtn");
 let currentDate = new Date(2026, 7, 1);
 
 const defaultBills = [
@@ -389,5 +390,14 @@ generateBillsBtn.addEventListener("click", async () => {
     block: "start"
   });
 
+});
+printSummaryBtn.addEventListener("click", () => {
+  document.body.classList.add("print-summary-only");
+
+  window.print();
+
+  setTimeout(() => {
+    document.body.classList.remove("print-summary-only");
+  }, 500);
 });
 checkSession();
