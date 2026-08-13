@@ -787,6 +787,21 @@ td input:focus {
 .home-photo-card {
   margin-top: 26px;
 }
+.photo-frame {
+  width: 170px;
+  height: 110px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
 
 .photo-placeholder {
   height: 135px;
