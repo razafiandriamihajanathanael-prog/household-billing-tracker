@@ -9,8 +9,32 @@
 </head>
 
 <body>
+  <div id="loginScreen" class="login-screen">
+  <div class="login-card">
+    <h1>Our Home</h1>
+    <p>Private access for Anja, Laeti, Fano & Toto</p>
 
-  <main class="app">
+    <input
+      type="email"
+      id="loginEmail"
+      placeholder="Email"
+      autocomplete="email"
+    >
+
+    <input
+      type="password"
+      id="loginPassword"
+      placeholder="Password"
+      autocomplete="current-password"
+    >
+
+    <button id="loginBtn">Sign In</button>
+
+    <p id="loginMessage"></p>
+  </div>
+</div>
+
+  <main class="app" id="appContent" style="display:none;">
 
     <header class="header">
       <p class="eyebrow">HOUSEHOLD FINANCE</p>
