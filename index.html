@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Household Billing Tracker</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="app">
+
+    <header class="header">
+      <p class="eyebrow">HOUSEHOLD FINANCE</p>
+      <h1>Monthly Billing Tracker</h1>
+      <p class="subtitle">
+        Add your household bills, track due dates, and automatically split each bill between 4 people.
+      </p>
+    </header>
+
+    <section class="month-section">
+
+      <button id="previousMonthBtn">←</button>
+
+      <div>
+        <p class="small-label">Billing Month</p>
+        <h2 id="currentMonth">August 2026</h2>
+      </div>
+
+      <button id="nextMonthBtn">→</button>
+
+    </section>
+
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <p>Total Bills</p>
+        <h3 id="totalAmount">$0.00</h3>
+      </div>
+
+      <div class="summary-card">
+        <p>Per Person</p>
+        <h3 id="totalPerPerson">$0.00</h3>
+      </div>
+
+      <div class="summary-card">
+        <p>Number of Bills</p>
+        <h3 id="billCount">0</h3>
+      </div>
+
+    </section>
+
+    <section class="billing-section">
+
+      <div class="section-heading">
+        <div>
+          <p class="small-label">MONTHLY EXPENSES</p>
+          <h2>Bills</h2>
+        </div>
+
+        <button id="addBillBtn" class="primary-btn">
+          + Add Bill
+        </button>
+      </div>
+
+      <div class="table-wrapper">
+
+        <table>
+
+          <thead>
+            <tr>
+              <th>Bill</th>
+              <th>Due Date</th>
+              <th>Total Amount</th>
+              <th>Split ÷ 4</th>
+              <th>Notes</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="billTableBody">
+
+            <tr class="bill-row">
+              <td>
+                <input
+                  type="text"
+                  class="bill-name"
+                  value="Rent"
+                >
+              </td>
+
+              <td>
+                <input
+                  type="date"
+                  class="due-date"
+                >
+              </td>
+
+              <td>
+                <div class="money-input">
+                  <span>$</span>
+                  <input
+                    type="number"
+                    class="bill-amount"
+                    placeholder="0.00"
+                    step="0.01"
+                    min="0"
+                  >
+                </div>
+              </td>
+
+              <td class="split-amount">
+                $0.00
+              </td>
+
+              <td>
+                <input
+                  type="text"
+                  class="bill-notes"
+                  placeholder="Optional"
+                >
+              </td>
+
+              <td>
+                <button class="delete-btn">
+                  ×
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+    <section class="actions">
+
+      <button id="printBtn" class="secondary-btn">
+        Print / Save PDF
+      </button>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
