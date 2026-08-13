@@ -20,6 +20,8 @@ async function checkSession() {
   if (session) {
     loginScreen.style.display = "none";
     appContent.style.display = "block";
+
+    await loadMonth();
   } else {
     loginScreen.style.display = "flex";
     appContent.style.display = "none";
@@ -45,6 +47,7 @@ loginBtn.addEventListener("click", async () => {
   loginMessage.textContent = "";
   loginScreen.style.display = "none";
   appContent.style.display = "block";
+    await loadMonth();
 });
 
 checkSession();
@@ -210,44 +213,80 @@ function updateTotals() {
     count;
 }
 
-function saveMonth() {
-  const rows =
-    document.querySelectorAll(".bill-row");
+async function saveMonth() {
+  const rows = document.querySelectorAll(".bill-row");
 
-  const data = [];
+  const monthKey =
+    `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`;
+
+  const bills = [];
 
   rows.forEach(row => {
-    data.push({
-      name: row.querySelector(".bill-name").value,
-      dueDate: row.querySelector(".due-date").value,
-      amount: row.querySelector(".bill-amount").value,
-      notes: row.querySelector(".bill-notes").value
-    });
+    const name = row.querySelector(".bill-name").value.trim();
+    const dueDate = row.querySelector(".due-date").value;
+    const amount = row.querySelector(".bill-amount").value;
+    const notes = row.querySelector(".bill-notes").value.trim();
+
+    if (name !== "") {
+      bills.push({
+        month: monthKey,
+        bill_name: name,
+        due_date: dueDate || null,
+        amount: amount === "" ? null : Number(amount),
+        notes: notes || null
+      });
+    }
   });
 
-  localStorage.setItem(
-    `billing-${getMonthKey()}`,
-    JSON.stringify(data)
-  );
+  // Remove the old saved version of this month
+  const { error: deleteError } = await supabaseClient
+    .from("bills")
+    .delete()
+    .eq("month", monthKey);
+
+  if (deleteError) {
+    console.error("Error removing old bills:", deleteError);
+    return;
+  }
+
+  // Save the newest version
+  if (bills.length > 0) {
+    const { error: insertError } = await supabaseClient
+      .from("bills")
+      .insert(bills);
+
+    if (insertError) {
+      console.error("Error saving bills:", insertError);
+    }
+  }
 }
 
-function loadMonth() {
-  currentMonthDisplay.textContent =
-    formatMonth();
-
+async function loadMonth() {
+  currentMonthDisplay.textContent = formatMonth();
   billTableBody.innerHTML = "";
 
-  const savedData =
-    localStorage.getItem(
-      `billing-${getMonthKey()}`
-    );
+  const monthKey =
+    `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, "0")}`;
 
-  if (savedData) {
-    const bills =
-      JSON.parse(savedData);
+  const { data, error } = await supabaseClient
+    .from("bills")
+    .select("*")
+    .eq("month", monthKey)
+    .order("created_at", { ascending: true });
 
-    bills.forEach(bill => {
-      createBillRow(bill);
+  if (error) {
+    console.error("Error loading bills:", error);
+    return;
+  }
+
+  if (data && data.length > 0) {
+    data.forEach(bill => {
+      createBillRow({
+        name: bill.bill_name,
+        dueDate: bill.due_date || "",
+        amount: bill.amount ?? "",
+        notes: bill.notes || ""
+      });
     });
   } else {
     defaultBills.forEach(name => {
@@ -258,14 +297,14 @@ function loadMonth() {
   updateTotals();
 }
 
-function changeMonth(direction) {
-  saveMonth();
+async function changeMonth(direction) {
+  await saveMonth();
 
   currentDate.setMonth(
     currentDate.getMonth() + direction
   );
 
-  loadMonth();
+  await loadMonth();
 }
 
 addBillBtn.addEventListener("click", () => {
@@ -286,4 +325,4 @@ printBtn.addEventListener("click", () => {
   window.print();
 });
 
-loadMonth();
+
